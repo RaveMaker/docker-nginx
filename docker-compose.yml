@@ -1,0 +1,22 @@
+version: '3.7'
+
+services:
+  web:
+    image: nginx:alpine
+    restart: unless-stopped
+    labels:
+      - "traefik.backend=${podName}-web"
+      - "traefik.frontend.rule=Host:${hostRule}"
+      - "traefik.docker.network=${podName}_frontend"
+      - "traefik.port=80"
+
+    networks:
+      - frontend
+    volumes:
+      - ./conf.d:/etc/nginx/conf.d:ro
+      - ./html:/usr/share/nginx/html:ro
+      - ./groups:/home:ro
+    command: [nginx, '-g', 'daemon off;']
+
+networks:
+  frontend:
