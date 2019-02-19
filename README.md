@@ -4,7 +4,7 @@ docker-compose for Nginx as a static web server with Traefik support.
 
 Nginx default.conf also includes support for personal home folder (same as userdir mod for apache)
 
-## Installation
+## Setup
 1. clone the repo
 2. edit .env file
 
