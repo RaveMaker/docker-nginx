@@ -15,7 +15,7 @@ services:
     volumes:
       - ./conf.d:/etc/nginx/conf.d:ro
       - ./html:/usr/share/nginx/html:ro
-      - ./groups:/home:ro
+      #- ./groups:/home:ro # uncomment for userdir_mod behaviour
     command: [nginx, '-g', 'daemon off;']
 
 networks:
