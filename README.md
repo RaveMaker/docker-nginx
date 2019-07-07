@@ -11,3 +11,8 @@ Nginx default.conf also includes support for personal home folder (same as userd
 to use the userdir mod behaviour:
 1. mount your users home/group folder to ./groups
 2. uncomment #- ./groups:/home:ro in your docker-compose file
+
+Author: [RaveMaker][RaveMaker].
+
+[RaveMaker]: http://ravemaker.net
+ 
