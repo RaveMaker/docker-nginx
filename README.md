@@ -8,7 +8,7 @@ Nginx default.conf also includes support for personal home folder (same as userd
 1. clone the repo
 2. edit .env file
 
-to use the userdir mod behaviour:
+to use the 'userdir_mod' behaviour:
 1. mount your users home/group folder to ./groups
 2. in docker-compose.yml file uncomment:
 ```
