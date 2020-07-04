@@ -1,0 +1,24 @@
+version: '3.7'
+
+services:
+  web:
+    image: nginx:alpine
+    restart: always
+    ports:
+    - 80:80
+    networks:
+      - frontend
+    volumes:
+      - ./conf.d:/etc/nginx/conf.d:ro
+      - ./html:/usr/share/nginx/html:ro
+      #- ./home:/home:ro # uncomment for userdir_mod behaviour
+    command: [nginx, '-g', 'daemon off;']
+    # Deploy block for docker swarm mode only - ignored by docker-compose
+    deploy:
+      mode: replicated
+      replicas: 1
+      placement:
+        constraints: [node.role == manager]
+
+networks:
+  frontend:

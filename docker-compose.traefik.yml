@@ -1,0 +1,34 @@
+version: '3.7'
+
+services:
+  web:
+    image: nginx:alpine
+    restart: always
+    labels:
+      - traefik.enable=true
+      - traefik.http.routers.${podName}.rule=Host(`${hostRule}`)
+      - traefik.http.routers.${podName}.entrypoints=websecure
+      - traefik.http.services.${podName}.loadbalancer.server.port=80
+      - traefik.docker.network=${podName}_frontend
+    networks:
+      - frontend
+    volumes:
+      - ./conf.d:/etc/nginx/conf.d:ro
+      - ./html:/usr/share/nginx/html:ro
+      #- ./home:/home:ro # uncomment for userdir_mod behaviour
+    command: [nginx, '-g', 'daemon off;']
+    # Deploy block for docker swarm mode only - ignored by docker-compose
+    deploy:
+      mode: replicated
+      replicas: 1
+      placement:
+        constraints: [node.role == manager]
+      labels:
+        - traefik.enable=true
+        - traefik.http.routers.${podName}.rule=Host(`${hostRule}`)
+        - traefik.http.routers.${podName}.entrypoints=websecure
+        - traefik.http.services.${podName}.loadbalancer.server.port=80
+        - traefik.docker.network=${podName}_frontend
+
+networks:
+  frontend:

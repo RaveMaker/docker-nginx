@@ -7,12 +7,20 @@ Nginx default.conf also includes support for personal home folder (same as userd
 ## Setup:
 1. clone the repo
 2. create `.env` file from `.env.example`
+3. copy one of the docker-compose (dev/traefik) templates to `docker-compose.yml`
 
-to use the 'userdir_mod' behaviour:
-1. mount your users home/group folder to ./groups
-2. in docker-compose.yml file uncomment:
+- to create a docker-compose.prod.yml file for docker swarm run:
+
 ```
-#- ./groups:/home:ro
+docker-compose config > docker-compose.prod.yml
+``` 
+
+- to use the 'userdir_mod' behaviour:
+1. mount your users home/group folder to ./home
+2. in docker-compose.yml file uncomment:
+
+```
+#- ./home:/home:ro
 ```
 
 ## Network settings:
